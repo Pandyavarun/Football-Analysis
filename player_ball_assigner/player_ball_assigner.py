@@ -5,13 +5,13 @@ from utils import get_center_of_bbox, measure_distance
 class PlayerBallAssigner():
 
     def __init__(self):
-        self.max_player_ball_distance = 50
+        self.max_player_ball_distance = 70
 
     def assign_player_ball(self, players, ball_bbox):
         ball_position = get_center_of_bbox(ball_bbox)
 
-        mininum_distance = float("inf")
-        assigned_player = None
+        mininum_distance = 99999
+        assigned_player = -1
 
         for player_id, player in players.items():
             player_bbox =  player['bbox']
