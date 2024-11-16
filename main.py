@@ -30,6 +30,10 @@ def main():
     #Interpolate Ball Positions
     tracks['ball'] = tracker.interpolate_ball_positions(tracks['ball'])
 
+    # Speed and distance estimator
+    speed_and_distance_estimator = SpeedAndDistance_Estimator()
+    speed_and_distance_estimator.add_speed_and_distance_to_tracks(tracks)
+
     #Assign Team
     team_assigner = TeamAssigner()
     team_ball_control = []
