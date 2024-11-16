@@ -1,5 +1,3 @@
-
-
 from sklearn.cluster import KMeans
 
 class TeamAssigner:

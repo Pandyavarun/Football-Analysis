@@ -16,12 +16,18 @@ def main():
 
     tracks = tracker.get_object_tracker(video_frames, read_from_stub = True, stub_path = "stubs/track_stub.pkl")
 
-    #Estimate Camera Movement
+     # camera movement estimator
     camera_movement_estimator = CameraMovementEstimator(video_frames[0])
-    camera_movement_per_frame = camera_movement_estimator.get_camera_movement(video_frames, read_from_stub = True, stub_path = "stubs/camera_movement_stub.pkl")
+    camera_movement_per_frame = camera_movement_estimator.get_camera_movement(video_frames,
+                                                                                read_from_stub=True,
+                                                                                stub_path='stubs/camera_movement_stub.pkl')
+    camera_movement_estimator.add_adjust_positions_to_tracks(tracks,camera_movement_per_frame)
+
+    # View Trasnformer
+    view_transformer = ViewTransformer()
+    view_transformer.add_transformed_position_to_tracks(tracks)
 
     #Interpolate Ball Positions
-
     tracks['ball'] = tracker.interpolate_ball_positions(tracks['ball'])
 
     #Assign Team
@@ -37,7 +43,6 @@ def main():
 
 
     #Assign Ball Acquisition
-
     player_assigner = PlayerBallAssigner()
     team_ball_control = []
     for frame_num, player_track in enumerate(tracks['players']):
