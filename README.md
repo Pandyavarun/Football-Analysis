@@ -1,4 +1,3 @@
-
 # Football Analysis
 
 ## Overview
@@ -65,15 +64,31 @@ This project analyzes football matches using computer vision and machine learnin
      ```
    - Processed results, including videos and metrics, will be saved in the `output_videos/` folder.
 
+4. **Inference with YOLO**:
+   - Run the YOLO inference script using:
+     ```bash
+     python yolo_inference.py
+     ```
+
 ---
 
 ## File Structure
 - `main.py`: Main script for running the analysis.
-- `training/`: Contains the YOLOv5 training notebook.
+- `training/`: Contains the YOLOv5 training notebook (`Yolov5.ipynb`).
 - `models/`: Directory for storing pre-trained or newly trained YOLO models.
 - `utils/`: Helper scripts for video processing and analysis.
 - `input_videos/`: Folder for manually uploaded input videos.
 - `output_videos/`: Folder for processed video outputs and metrics.
+- `camera_movement_estimator/`: Module for estimating camera movement.
+- `player_ball_assigner/`: Assigns balls to players during the match.
+- `team_assigner/`: Assigns players to teams based on their jersey color.
+- `trackers/`: Includes tracking functionality for players and ball.
+- `view_transformer/`: Module for transforming view and position adjustments.
+- `speed_and_distance_estimator/`: Estimates player speed and distance.
+- `stubs/`: Stores intermediate data like track and camera movement stubs.
+- `runs/`: Stores results of detection runs.
+- `requirements.txt`: Python dependencies for the project.
+- `yolo_inference.py`: Script to run YOLO inference on input videos.
 
 ---
 
