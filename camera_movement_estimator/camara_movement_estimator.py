@@ -51,14 +51,14 @@ class CameraMovementEstimator():
         old_gray = cv2.cvtColor(frames[0],cv2.COLOR_BGR2GRAY)
         old_features = cv2.goodFeaturesToTrack(old_gray,**self.features)
 
-        for frame_num in range (1, len(frames)):
-            frame_gray = cv2.cvtColor(frames[frame_num], cv2.COLOR_BGR2GRAY)
-            new_features, _, _ = cv2.calcOpticalFlowPyrLK(old_gray, frame_gray, old_features, None, **self.lk_params)
+        for frame_num in range(1,len(frames)):
+            frame_gray = cv2.cvtColor(frames[frame_num],cv2.COLOR_BGR2GRAY)
+            new_features, _,_ = cv2.calcOpticalFlowPyrLK(old_gray,frame_gray,old_features,None,**self.lk_params)
 
             max_distance = 0
             camera_movement_x, camera_movement_y = 0,0
 
-            for i, (new, old) in enumerate(zip(new_features, old_features)):
+            for i, (new,old) in enumerate(zip(new_features,old_features)):
                 new_features_point = new.ravel()
                 old_features_point = old.ravel()
 
@@ -79,20 +79,20 @@ class CameraMovementEstimator():
 
         return camera_movement
     
-    
-    def draw_camera_movement(self, frames, camera_movement_per_frame):
-        output_frames = []
+    def draw_camera_movement(self,frames, camera_movement_per_frame):
+        output_frames=[]
+
         for frame_num, frame in enumerate(frames):
             frame= frame.copy()
 
             overlay = frame.copy()
-            cv2.rectangle(overlay, (0, 0), (500, 100), (255, 255, 255), -1)
+            cv2.rectangle(overlay,(0,0),(500,100),(255,255,255),-1)
             alpha =0.6
             cv2.addWeighted(overlay,alpha,frame,1-alpha,0,frame)
 
             x_movement, y_movement = camera_movement_per_frame[frame_num]
-            frame = cv2.putText(frame, f"X: {x_movement:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
-            frame = cv2.putText(frame, f"Y: {y_movement:.2f}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
+            frame = cv2.putText(frame,f"Camera Movement X: {x_movement:.2f}",(10,30), cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),3)
+            frame = cv2.putText(frame,f"Camera Movement Y: {y_movement:.2f}",(10,60), cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),3)
 
             output_frames.append(frame) 
 
